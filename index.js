@@ -70,6 +70,7 @@ searchButtonElement.addEventListener('click', async () => {
     const movieTitleValue = searchInputElement.value;
     
 
+    
     spinnerElement.style.display = 'block';
   
     try {
