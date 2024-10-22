@@ -66,4 +66,43 @@ odil.addEventListener('show.bs.modal', event => {
 
 const modalBoxesElement = document.querySelector("#modal-boxes")
 
- 
+searchButtonElement.addEventListener('click', async () => {
+    const movieTitleValue = searchInputElement.value;
+    
+
+    spinnerElement.style.display = 'block';
+  
+    try {
+      const movie = await fetchData(movieTitleValue);
+      
+      
+      spinnerElement.style.display = 'none';
+  
+      if (movie && movie.Title) {
+        showToast('Фильм найден!', 'success');
+        displayMovieCard(movie);
+      } else {
+        showToast('Фильм не найден.', 'error');
+      }
+    } catch (error) {
+      
+      spinnerElement.style.display = 'none';
+      showToast('Ошибка поиска фильма.', 'error');
+    }
+  });
+  
+  function showToast(message, type) {
+    toastMessageElement.textContent = message;
+    
+    if (type === 'success') {
+      toastElement.classList.replace('text-bg-danger', 'text-bg-success');
+    } else {
+      toastElement.classList.replace('text-bg-success', 'text-bg-danger');
+    }
+    
+    toastElement.style.display = 'block';
+    
+    setTimeout(() => {
+      toastElement.style.display = 'none';
+    }, 3000);
+  }
